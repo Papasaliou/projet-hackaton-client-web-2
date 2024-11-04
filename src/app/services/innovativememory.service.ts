@@ -7,10 +7,10 @@ import {Config} from "../../configs/config";
   providedIn: 'root'
 })
 export class InnovativememoryService {
-
   constructor(private http:HttpClient) { }
 
-  upload(fileToImport:File):Observable<boolean>{
+  upload(fileToImport:File):Observable<boolean>
+  {
     const formData:FormData = new FormData();
     formData.append("files",fileToImport,fileToImport.name);
     const  headers:HttpHeaders = new HttpHeaders();
@@ -18,6 +18,6 @@ export class InnovativememoryService {
     return this.http.post<boolean>(Config.apiUrl+"upload",formData,{headers});
   }
   chat(question:string):Observable<string>{
-    return this.http.get<string>(Config.apiUrl+"chat?"+question);
+    return this.http.get<string>(Config.apiUrl+"chat?question="+question);
   }
 }

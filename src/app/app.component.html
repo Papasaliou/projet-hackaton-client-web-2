@@ -51,14 +51,15 @@
 
     <div id="chat-section">
       <a href="#" class="btn btn-primary" *ngIf="fileName && fileName.trim().length > 0">{{fileName}}</a>
+      <p>{{question}}</p>
       <div class="d-flex align-items-center" id="chat-sectiondiv">
-        <textarea class="auto-textarea flex-grow-1 me-2" placeholder="Écrivez votre message ici...">
+        <textarea class="auto-textarea flex-grow-1 me-2" [(ngModel)]="question" placeholder="Écrivez votre message ici...">
 
         </textarea>
 
               <div class="d-flex h-auto"> <!-- Groupe de boutons -->
                 <label class="custom-file-upload icon-button text-white me-2">
-                  <input type="file" class="d-none" [(ngModel)]="fileName"  (click)="onFileselected($event)" >
+                  <input type="file" class="d-none" #fileInput  (change)="onFileSelected($event)"  [attr.accept]="'.pdf'" >
                   <i class="bi bi-paperclip fs-6 text-dark"></i>
                 </label>
 
@@ -70,7 +71,7 @@
                   <i class="bi bi-search fs-6" title="Submit"></i>
                 </button>
 
-                <button class="icon-button" id="icon-buttonSubmit" >
+                <button class="icon-button" id="icon-buttonSubmit" *ngIf="fileUpload">
                   <i class="bi bi-send fs-6"  (click)="uploadFile()" title="Submit"></i>
                 </button>
               </div>

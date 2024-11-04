@@ -1,3 +1,3 @@
 export  class  Config{
-static apiUrl: string = "http://localhost:8080/api/innovativeMemory/";
+static apiUrl: string = "http://10.153.4.50:8080/api/innovativeMemory/";
 }
