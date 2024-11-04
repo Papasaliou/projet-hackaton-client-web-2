@@ -17,6 +17,7 @@ export class InnovativememoryService {
     headers.append("Accept","application/json");
     return this.http.post<boolean>(Config.apiUrl+"upload",formData,{headers});
   }
+
   chat(question:string):Observable<string>{
     return this.http.get<string>(Config.apiUrl+"chat?question="+question);
   }
