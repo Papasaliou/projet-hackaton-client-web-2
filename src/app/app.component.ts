@@ -64,14 +64,14 @@ fileInput!: ElementRef;
 
     this.innovativememoryService.chat(this.question).subscribe({
       next : value => {
-        // this.result = value;
-        // this.discussion=new Discussion(value,false)
-        // this.discussionService.discussions.push(this.discussion);
-        // console.log(this.discussionService.discussions.length);
+        this.result = value;
+        this.discussion=new Discussion(value,false)
+        this.discussionService.discussions.push(this.discussion);
+        console.log(this.discussionService.discussions.length);
         console.log("============>"+value);
       },
       error:err => {
-        console.log("Pas de reponse"+err.json);
+        console.log("Pas de reponse"+JSON.stringify(err));
       }
     })
   }
