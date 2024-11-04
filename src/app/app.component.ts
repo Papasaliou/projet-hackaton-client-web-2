@@ -71,7 +71,7 @@ fileInput!: ElementRef;
         console.log("============>"+value);
       },
       error:err => {
-        console.log("Pas de reponse"+err.json);
+        console.log("Pas de reponse"+JSON.stringify(err));
       }
     })
   }
