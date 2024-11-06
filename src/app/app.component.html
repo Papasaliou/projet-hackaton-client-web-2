@@ -1,6 +1,6 @@
 <nav>
-  <div  (click)="handleMenuOpen()" class="ham-menu">
-    <button  routerLink="/newchat">+ New chat</button>
+  <div (click)="handleMenuOpen()" class="ham-menu">
+    <button routerLink="/newchat">+ New chat</button>
     <span></span>
     <span></span>
     <span></span>
@@ -8,6 +8,7 @@
   <div><p>Old conversation 1</p></div>
   <div class="new-chat">+</div>
 </nav>
+
 <div class="pos-f-t mb-5 fixed-top z-0">
   <nav class="navbar navbar-dark bg-dark">
     <button class="navbar-toggler btn btn-outline-success" type="button" (click)="handleMenuOpen()" data-toggle="collapse" data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -22,17 +23,16 @@
   </nav>
 </div>
 
-
 <div id="main" class="mt-5">
   <div id="sidenav" class="z-3">
     <div class="sidenav-content">
       <button id="close"><span> </span></button>
-      <div class="mb-5 ">
+      <div class="mb-5">
         <button class="btn btn-close btn-close-white float-end me-3" (click)="handleMenuClose()"></button>
       </div>
       <button id="new-chat-btn" routerLink="/newchat">+ New chat</button>
       <div class="saved-chats">
-        <p class="selected" >Old conversation 1</p>
+        <p class="selected">Old conversation 1</p>
         <p>Old conversation 2</p>
       </div>
       <div class="config">
@@ -44,47 +44,38 @@
       </div>
     </div>
   </div>
-  <div id="content-body">
-    <router-outlet>
 
-    </router-outlet>
+  <div id="content-body">
+    <router-outlet></router-outlet>
 
     <div id="chat-section">
       <a href="#" class="btn btn-primary" *ngIf="fileName && fileName.trim().length > 0">{{fileName}}</a>
       <div class="d-flex align-items-center" id="chat-sectiondiv">
         <textarea class="auto-textarea flex-grow-1 me-2" [(ngModel)]="question" placeholder="Écrivez votre message ici...">
-
         </textarea>
 
-              <div class="d-flex h-auto"> <!-- Groupe de boutons -->
+        <div class="d-flex h-auto">
+          <!-- Input Audio -->
+          <label class="custom-file-upload icon-button text-white me-2">
+            <input type="file" accept=".mp3,audio/*" class="d-none" #audioFileInput (change)="onAudioFileSelected($event)">
+            <i class="bi bi-mic-fill fs-6 text-dark"></i>
+          </label>
+          <label class="custom-file-upload icon-button text-white me-2">
+            <input type="file" class="d-none" #fileInput (change)="onFileSelected($event)" [attr.accept]="'.pdf'">
+            <i class="bi bi-paperclip fs-6 text-dark"></i>
+          </label>
+          <button class="icon-button me-2" (click)="chatComponent()">
+            <i class="bi bi-search fs-6" title="Submit"></i>
+          </button>
 
-                <label class="custom-file-upload icon-button text-white me-2">
-                  <input type="file"  accept=".mp3,audio/*" class="d-none" #audioFileInput  (change)="onAudioFileSelected($event)"  [attr.accept]="'.mp3,.ogg,.wav*'" >
-<!--                  <i class="bi bi-paperclip fs-6 text-dark"></i>-->
-                  <i class="bi bi-mic-fill fs-6 text-dark"></i>
-                </label>
-                <label class="custom-file-upload icon-button text-white me-2">
-                  <input type="file" class="d-none" #fileInput  (change)="onFileSelected($event)"  [attr.accept]="'.pdf'" >
-                  <i class="bi bi-paperclip fs-6 text-dark"></i>
-                </label>
-
-                <button class="icon-button me-2" (click)="chatComponent()">
-                  <i class="bi bi-search fs-6" title="Submit"></i>
-                </button>
-
-                <button class="icon-button" id="icon-buttonSubmit" *ngIf="fileUpload">
-                  <i class="bi bi-send fs-6"  (click)="uploadFile()" title="Submit"></i>
-                </button>
-                <button class="icon-button" id="icon-buttonSubmit1" *ngIf="audiofileUpload">
-                  <i class="bi bi-send fs-6"  (click)="uploadAudioFile()" title="Submit"></i>
-                </button>
-              </div>
-
+          <button class="icon-button" *ngIf="showFileUploadButton" (click)="uploadFile()">
+            <i class="bi bi-send fs-6" title="Submit File"></i>
+          </button>
+          <button class="icon-button" *ngIf="showAudioUploadButton" (click)="uploadAudioFile()">
+            <i class="bi bi-send fs-6" title="Submit Audio"></i>
+          </button>
+        </div>
       </div>
     </div>
-
-
   </div>
-
-
 </div>
