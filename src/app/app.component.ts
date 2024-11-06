@@ -28,10 +28,13 @@ declare function handleMenuClose(): any;
 export class AppComponent implements OnInit{
 file!:File;
 fileName:string = "";
-fileUpload:boolean = false;
+fileUpload!:boolean
+  audiofileUpload!:boolean
   question!:string;
   result!:string;
   discussion!:Discussion;
+  audioFile!:File;
+  audioFileInput!:ElementRef;
 
 fileInput!: ElementRef;
 
@@ -52,6 +55,15 @@ fileInput!: ElementRef;
       this.file = fileInput.files[0];
       this.fileName = this.file.name; // Pas besoin de split() car file.name donne déjà le nom du fichier
       this.fileUpload = true;
+    }
+  }
+
+  onAudioFileSelected(event: Event) { // Changé de MouseEvent à Event
+    const audiofileInput = event.target as HTMLInputElement; // Corrigé la typo "fileInpute"
+    if (audiofileInput.files && audiofileInput.files.length > 0) {
+      this.audioFile = audiofileInput.files[0];
+      this.fileName = this.file.name; // Pas besoin de split() car file.name donne déjà le nom du fichier
+      this.audiofileUpload = true;
     }
   }
 
@@ -77,11 +89,35 @@ fileInput!: ElementRef;
   }
 
 
+  uploadAudioFile() {
+    if(this.audioFile){
+      this.innovativememoryService.uploadAudio(this.audioFile).subscribe({
+        next:value => {
+          this.result = value;
+          this.discussion=new Discussion(value,false)
+          this.discussionService.discussions.push(this.discussion);
+          console.log(this.discussionService.discussions.length);
+          console.log("============>"+value);
+          // console.log("Le document est bien uploder");
+        },
+        error:err => {
+          console.log("erreur lors de l'upload du document"+JSON.stringify(err));
+        }
+      })
+    }
+  }
+
+
   uploadFile() {
     if(this.file){
       this.innovativememoryService.upload(this.file).subscribe({
         next:value => {
-          console.log("Le document est bien uploder");
+          this.result = value;
+          this.discussion=new Discussion(value,false)
+          this.discussionService.discussions.push(this.discussion);
+          console.log(this.discussionService.discussions.length);
+          console.log("============>"+value);
+          //console.log("Le document est bien uploder");
 
         },
         error:err => {
