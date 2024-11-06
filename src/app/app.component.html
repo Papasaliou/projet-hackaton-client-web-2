@@ -58,14 +58,16 @@
         </textarea>
 
               <div class="d-flex h-auto"> <!-- Groupe de boutons -->
+
+                <label class="custom-file-upload icon-button text-white me-2">
+                  <input type="file"  accept=".mp3,audio/*" class="d-none" #audioFileInput  (change)="onAudioFileSelected($event)"  [attr.accept]="'.mp3,.ogg,.wav*'" >
+<!--                  <i class="bi bi-paperclip fs-6 text-dark"></i>-->
+                  <i class="bi bi-mic-fill fs-6 text-dark"></i>
+                </label>
                 <label class="custom-file-upload icon-button text-white me-2">
                   <input type="file" class="d-none" #fileInput  (change)="onFileSelected($event)"  [attr.accept]="'.pdf'" >
                   <i class="bi bi-paperclip fs-6 text-dark"></i>
                 </label>
-
-                <button class="icon-button me-2 custom-file-upload" title="Joindre une image">
-                  <i class="bi bi-image fs-6"></i>
-                </button>
 
                 <button class="icon-button me-2" (click)="chatComponent()">
                   <i class="bi bi-search fs-6" title="Submit"></i>
@@ -73,6 +75,9 @@
 
                 <button class="icon-button" id="icon-buttonSubmit" *ngIf="fileUpload">
                   <i class="bi bi-send fs-6"  (click)="uploadFile()" title="Submit"></i>
+                </button>
+                <button class="icon-button" id="icon-buttonSubmit1" *ngIf="audiofileUpload">
+                  <i class="bi bi-send fs-6"  (click)="uploadAudioFile()" title="Submit"></i>
                 </button>
               </div>
 
